@@ -1,5 +1,6 @@
 
-
+const geocode = require('./utils/geocode')
+const weather = require('./utils/weather')
 const express = require('express')
 const path = require('path')
 const hbs = require('hbs')
@@ -28,6 +29,17 @@ app.get('/about', (req, res) => {
         name: 'Abhishek Kumar'
     })
 })
+// app.get('/products', (req, res) => {
+//     if (!req.query) {
+//         return res.send({
+//             error: "you must provide a search term"
+//         })
+//     }
+//     console.log(req.query)
+//     res.send({
+//         products: []
+//     })
+// })
 app.get('/help', (req, res) => {
     res.render('help', {
         title: 'Help page',
@@ -36,16 +48,37 @@ app.get('/help', (req, res) => {
     })
 })
 app.get('/weather', (req, res) => {
-    res.send({
-        location: 'Delhi',
-        forecast: '20 degree celcius. Chilling cold'
+    if (!req.query.location) {
+        return res.send({
+            error: "location not provided"
+        })
+    }
+    let area = req.query.location
+    geocode(area, (error, { longitude, latitude, place } = {}) => {
+        if (error)
+            return res.send({
+                error
+            })
+        weather({
+            longitude, latitude
+        }, (error, forecast) => {
+            if (error)
+                return res.send({
+                    error
+                })
+            res.send({
+                place,
+                forecast
+            })
+        })
     })
+
 })
 app.get('/help/*', (req, res) => {
-    res.render('404',{
-        title:'404',
-        name:'Abhishek Kumar',
-        errorMessage:'Help article not found'
+    res.render('404', {
+        title: '404',
+        name: 'Abhishek Kumar',
+        errorMessage: 'Help article not found'
     })
 })
 app.get('*', (req, res) => {
@@ -56,6 +89,6 @@ app.get('*', (req, res) => {
     })
 })
 
-app.listen(3000, () => {
+app.listen(8000, () => {
     console.log('server is up and running')
 })
