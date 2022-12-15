@@ -29,17 +29,6 @@ app.get('/about', (req, res) => {
         name: 'Abhishek Kumar'
     })
 })
-// app.get('/products', (req, res) => {
-//     if (!req.query) {
-//         return res.send({
-//             error: "you must provide a search term"
-//         })
-//     }
-//     console.log(req.query)
-//     res.send({
-//         products: []
-//     })
-// })
 app.get('/help', (req, res) => {
     res.render('help', {
         title: 'Help page',
@@ -88,7 +77,7 @@ app.get('*', (req, res) => {
         errorMessage: 'Page not found'
     })
 })
-
-app.listen(8000, () => {
-    console.log('server is up and running')
+const port = process.env.PORT || 8000
+app.listen(port, () => {
+    console.log('server is up and running at port' + port)
 })

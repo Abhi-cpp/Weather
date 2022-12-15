@@ -1,8 +1,8 @@
 const request = require('request')
-
+require("dotenv").config()
 
 const weather = (location, callback) => {
-    const url = "http://api.weatherstack.com/current?access_key=9d82439980b0235e4ec9a4258973174f&query=" + location.latitude + "," + location.longitude
+    const url = "http://api.weatherstack.com/current?access_key=" + process.env.WEATHERAPI + "&query=" + location.latitude + "," + location.longitude
     request({ url, json: true }, (error, { body }) => {
         if (error) {
             callback("Unable to connect to weather service.", undefined)
