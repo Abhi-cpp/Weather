@@ -12,7 +12,7 @@ weatherform.addEventListener('submit', (event) => {
 
     const location = search.value
 
-    const url = 'http://localhost:8000/weather?location=' + location
+    const url = 'https://weather-vyu6.onrender.com/weather?location=' + location
 
     fetch(url).then((response) => {
         response.json().then((data) => {
