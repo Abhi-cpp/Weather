@@ -16,8 +16,6 @@ const weather = (location, callback) => {
             const send = `${data.weather_descriptions[0]}.
             It is currently ${data.temperature} degree out. It fells like ${data.feelslike} degress out.
             Wind speed is ${data.wind_speed} Km/h and ${data.humidity}% humidity`
-            // const send = (data.weather_descriptions[0] + ". It is currently " + data.temperature + " degree out.It feels like " + data.feelslike + " degress out.\r\n" +
-            // "Wind speed is " + data.wind_speed + "Km/h and " + data.humidity + "% humidity.\r\n")
             callback(undefined, send)
         }
 
