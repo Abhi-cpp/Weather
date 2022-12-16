@@ -12,7 +12,6 @@ const weather = (location, callback) => {
         }
         else {
             const data = body.current
-            console.log(body.current.observation_time);
             const send = `${data.weather_descriptions[0]}.
             It is currently ${data.temperature} degree out. It fells like ${data.feelslike} degress out.
             Wind speed is ${data.wind_speed} Km/h and ${data.humidity}% humidity`
